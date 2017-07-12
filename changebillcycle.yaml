@@ -1,0 +1,84 @@
+swagger: "2.0"
+info:
+  version: "0.0.1"
+  title: BillCycle Change
+host: playground.apistudio.io
+basePath: /try/95a8c85a-a94d-4cf8-bae8-62c8e9db3f87
+schemes:
+  - http
+  - https
+consumes:
+  - application/json
+produces:
+  - application/json
+paths:
+  /{fan-id}/bill-cycle:
+    x-swagger-router-controller: getBillcycle
+    get:
+      operationId: getBillcycle
+      description: REST API providing billcycle details for given FAN
+      parameters:
+        - name: fan-id
+          in: path
+          description: unique financial account
+          required: true
+          type: integer
+      responses:
+        "200":
+          description: Success
+          schema:
+            $ref: "#/definitions/SuccessResponse"
+        default:
+          description: Error
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+    post:
+      operationId: changeBillcycle
+      description: REST API to update billcycle for given FAN
+      parameters:
+        - name: fan-id
+          in: path
+          description: unique financial account
+          required: true
+          type: integer
+        - name: billcycle
+          in: body
+          description: billcycle details
+          required: true
+          schema:
+            $ref: "#/definitions/billcycle"
+      responses:
+        default:
+          description: Success
+          schema:
+            $ref: "#/definitions/SuccessResponse"
+        "400":
+          description: Error
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+            
+definitions:
+  SuccessResponse:
+    required:
+      - message
+    properties:
+      message:
+        type: string
+      age:
+        type: number
+  ErrorResponse:
+    required:
+      - message
+    properties:
+      message:
+        type: string
+  billcycle:
+    required:
+      - billcycleId
+    properties:
+      billcycleId:
+        type: string
+      startdate:
+        type: string
+      enddate:
+        type: string
